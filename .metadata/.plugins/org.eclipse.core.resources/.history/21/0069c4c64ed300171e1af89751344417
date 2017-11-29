@@ -1,0 +1,78 @@
+package abc;
+
+import org.junit.*;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
+
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
+
+public class ZKClientTest {
+
+	public static ZKClientManagerImpl zkmanager = new ZKClientManagerImpl();
+	private String path = "Kumar-ZNode";
+	byte[] data = "www.google.com".getBytes();
+
+	@Before
+	public void setUp() throws Exception {
+
+	}
+
+	@After
+	public void tearDown() throws Exception {
+
+	}
+
+	@Test
+	public void testCreate() throws KeeperException, InterruptedException {
+
+		zkmanager.create(path, data);
+		Stat stat = zkmanager.getZNodeStats(path);
+		assertNotNull(stat);
+		zkmanager.delete(path);
+	}
+
+	@Test
+	public void testGetZNodeStats() throws KeeperException, InterruptedException {
+
+		zkmanager.create(path, data);
+		Stat stat = zkmanager.getZNodeStats(path);
+		assertNotNull(stat);
+		assertNotNull(stat.getAversion());
+		zkmanager.delete(path);
+	}
+
+	// updateZnode Data
+	@Test
+	public void testUpdate() throws KeeperException, InterruptedException {
+		zkmanager.create(path, data);
+		String data = "dsfsdfs";
+		byte[] dataBytes = data.getBytes();
+
+		zkmanager.update(data, dataBytes);
+		String retrivedData = (String) zkmanager.getZNodeData(path, false);
+		assertNotNull(retrivedData);
+		zkmanager.delete(path);
+
+	}
+	@Test
+	public void  getZNodeChildren() throws KeeperException,
+	InterruptedException{
+		zkmanager.create(path, data);
+		List<String> children =zkmanager.getZNodeChildren(path);
+		assertNotNull(children);
+		zkmanager.delete(path);
+	}
+	
+	public void testDelete() throws KeeperException,InterruptedException{
+		zkmanager.create(path, data);
+		zkmanager.delete(path);
+		Stat stat= zkmanager.getZNodeStats(path);
+		assertNull(stat);
+	}
+	
+
+}

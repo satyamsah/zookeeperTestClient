@@ -1,0 +1,17 @@
+package abc;
+import java.io.*;
+import java.util.concurrent.CountDownLatch;
+
+import org.apache.zookeeper.*;
+public class ZKConnection {
+		
+		ZooKeeper zoo;
+		final CountDownLatch connectionLatch= new CountDownLatch(1);
+		public ZKConnection() {
+			
+		}
+		
+		
+	
+
+}

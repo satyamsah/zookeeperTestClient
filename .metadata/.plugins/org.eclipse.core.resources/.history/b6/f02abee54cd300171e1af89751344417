@@ -1,0 +1,27 @@
+package abc;
+
+import org.junit.*;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
+
+public class ZKClientTest {
+
+	public static ZKClientManagerImpl zkmanager = new ZKClientManagerImpl();
+	private String path = "Kumar-ZNode";
+	byte[] data = "www.google.com".getBytes();
+
+	@Before
+	public void setUp() throws Exception {
+
+	}
+
+	@After
+	public void tearDown() throws Exception {
+
+	}
+
+	public void testCreate() throws Exception {
+
+	}
+
+}

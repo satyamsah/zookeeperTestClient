@@ -1,0 +1,19 @@
+package abc;
+
+
+
+
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
+public class ZKClientTest {
+
+	public static ZKClientManagerImpl zkmanager= new ZKClientManagerImpl();
+	private String path="Kumar-ZNode";
+	byte[] data="www.google.com".getBytes();
+	
+	public testCreate() throws KeeperException, InterruptedException{
+		zkmanager.create(path, data);
+		Stat stat= zkmanager.getZNodeStats(path);
+		
+	}
+}

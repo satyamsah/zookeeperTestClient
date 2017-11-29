@@ -1,0 +1,82 @@
+package abc;
+
+
+import org.junit.*;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
+
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
+
+public class Test {
+	
+	public static void main(String args[]) throws KeeperException, InterruptedException{
+		ZKClientManagerImpl zkmanager = new ZKClientManagerImpl();
+		String path = "Kumar-ZNode";
+		byte[] data = "www.google.com".getBytes();
+		testCreate(zkmanager);
+	}
+
+
+	public void testCreate(ZKClientManagerImpl zkmanager) throws KeeperException, InterruptedException {
+
+		zkmanager.create(path, data);
+		Stat stat = zkmanager.getZNodeStats(path);
+		assertNotNull(stat);
+		zkmanager.delete(path);
+	}
+
+
+	public void testGetZNodeStats() throws KeeperException, InterruptedException {
+
+		zkmanager.create(path, data);
+		Stat stat = zkmanager.getZNodeStats(path);
+		assertNotNull(stat);
+		assertNotNull(stat.getAversion());
+		zkmanager.delete(path);
+	}
+
+	// updateZnode Data
+	
+
+	public void testGetZNodeData() throws KeeperException, InterruptedException {
+		zkmanager.create(path, data);
+		String data = (String)zkmanager.getZNodeData(path,false);
+		assertNotNull(data);
+		zkmanager.delete(path);
+	}
+	
+	
+
+	public void testUpdate() throws KeeperException, InterruptedException {
+		zkmanager.create(path, data);
+		String data = "dsfsdfs";
+		byte[] dataBytes = data.getBytes();
+
+		zkmanager.update(data, dataBytes);
+		String retrivedData = (String) zkmanager.getZNodeData(path, false);
+		assertNotNull(retrivedData);
+		zkmanager.delete(path);
+
+	}
+
+	public void  getZNodeChildren() throws KeeperException,
+	InterruptedException{
+		zkmanager.create(path, data);
+		List<String> children =zkmanager.getZNodeChildren(path);
+		assertNotNull(children);
+		zkmanager.delete(path);
+	}
+	
+	public void testDelete() throws KeeperException,InterruptedException{
+		zkmanager.create(path, data);
+		zkmanager.delete(path);
+		Stat stat= zkmanager.getZNodeStats(path);
+		assertNull(stat);
+	}
+	
+
+}

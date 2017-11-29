@@ -1,0 +1,11 @@
+package abc;
+import org.apache.zookeeper.*;
+import java.util.*;
+public class ZKClientManagerImpl implements ZKManager {
+	
+	private static ZooKeeper zkeeper;
+	private static ZKConnection zkConnection;
+	
+
+	
+}
