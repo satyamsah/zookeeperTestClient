@@ -1,13 +1,5 @@
 import sys
-def make_tree(d):
-    
-        if d > 0:
-            d -= 1
-            return (make_tree(d), make_tree(d))
-        return (None, None)
-    
-    
-    def check_tree(node):
+def check_tree(node):
     
         (l, r) = node
         if l is None:
@@ -35,7 +27,7 @@ def make_tree(d):
             yield chunk
 
     min_depth = 4
-    n = 21
+    n = 18
     max_depth = max(min_depth + 2, n)
     stretch_depth = max_depth + 1
     chunkmap = map
@@ -55,3 +47,6 @@ def make_tree(d):
 
     print('long lived tree of depth {0}\t check: {1}'.format(
           max_depth, check_tree(long_lived_tree)))
+    date2= datetime.now()
+    print("time diff",date2-date1)
+    return { 'message': 'Hello sat' }
